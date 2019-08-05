@@ -1,0 +1,1 @@
+export const SHOW_NAME = 'calc/SHOW_NAME';
