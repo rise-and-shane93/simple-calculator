@@ -1,31 +1,34 @@
-import * as CalculatorActionTypes from '../actionTypes/calcActions';
+import { calcActions, calcBtns, numberBtns } from '../actionTypes/calcActionTypes';
 
-// const initialState = {
-//     startValue: ['0'],
-//     calcIndex: 0,
-//     userValue: 0
-// };
-//const initialState = ['0'];
 const initialState = {
-    startValue: [],
-    calcIndex: 0,
+    result: '',
+    currentItem: '',
+    displayNum: 0
 };
 
 export default function addNum(state=initialState, action) {
-    //let screenNum = Object.values(state.startValue);
     switch(action.type) {
-        case CalculatorActionTypes.NUMBER_BTN: {
-            // console.log(screenNum[0]);
-            // console.log(screenNum);
-            //return screenNum[0] += action.num;
-            //return screenNum += action.num;
-            //return screenNum;
-
-            //this.setState(state => {startValue: [...state.startValue, action.num]});
+        case numberBtns.NUMBER_BTN: {
             return {
-                startValue: [...state.startValue, action.num]
+                result: state.result,
+                currentItem: state.currentItem += action.num,
+                displayNum: state.currentItem
             }
-            //return state.startValue += action.num;
+        }
+        case calcBtns.ADD_BUTTON: {
+            return {
+                result: state.currentItem,
+                currentItem: '',
+                displayNum: state.result
+            }
+        }
+        case calcBtns.EQUAL_BUTTON: {
+            let resNum = parseInt(state.result);
+            let currNum = parseInt(state.currentItem);
+            return {
+                result: resNum += currNum,
+                currentItem: state.currentItem
+            }
         }
         default: 
             return state;

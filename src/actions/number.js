@@ -1,8 +1,21 @@
-import * as CalculatorActionTypes from '../actionTypes/calcActions';
+import { calcActions, calcBtns, numberBtns } from '../actionTypes/calcActionTypes';
 
 export const addNumber = num => {
     return {
-        type: CalculatorActionTypes.NUMBER_BTN,
+        type: numberBtns.NUMBER_BTN,
         num
     }
 };
+
+export const addSymbol = symbol => {
+    return {
+        type: calcBtns.ADD_BUTTON,
+        symbol
+    }
+}
+
+export const equalSymbol = () => {
+    return {
+        type: calcBtns.EQUAL_BUTTON,
+    }
+}

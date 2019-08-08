@@ -6,7 +6,8 @@ import CalcBtns from './components/CalcBtns';
 import Memory from './components/Memory';
 import Screen from './components/Screen';
 import Numbers from './components/Numbers';
-import * as CalculatorActionTypes from './actions/number';
+//import { calcActions, calcBtns, numberBtns } from './actionTypes/calcActionTypes';
+import * as ActionCreators from './actions/number';
 import './App.css';
 
 class App extends Component {
@@ -14,9 +15,15 @@ class App extends Component {
 
   // }
 
+  // componentDidMount() {
+  //   console.log(ActionCreators.calcActions.POWER_BUTTON);
+  // }
+
   render() {
     const { dispatch } = this.props;
-    const addNumber = bindActionCreators(CalculatorActionTypes.addNumber, dispatch);
+    const addNumber = bindActionCreators(ActionCreators.addNumber, dispatch);
+    const addSymbol = bindActionCreators(ActionCreators.addSymbol, dispatch);
+    const equalSymbol = bindActionCreators(ActionCreators.equalSymbol, dispatch);
 
     return (
       <section id="calculator">
@@ -27,7 +34,10 @@ class App extends Component {
             <Numbers 
               addNumber={addNumber}
             />
-            <CalcBtns />
+            <CalcBtns 
+              addSymbol={addSymbol}
+              equalSymbol={equalSymbol}
+            />
           </div>
         </div>
       </section>

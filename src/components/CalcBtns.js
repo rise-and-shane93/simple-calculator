@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import { connect } from 'react-redux';
 
 class CalcBtns extends Component {
     render() {
@@ -10,11 +11,12 @@ class CalcBtns extends Component {
                 <button className="btn calc-btn">&#37;</button>
                 <button className="btn calc-btn">-</button>
                 <button className="btn calc-btn"><sup>1</sup>/<sub>x</sub></button>
-                <button className="btn calc-btn">+</button>
-                <button className="btn calc-btn">=</button>
+                <button className="btn calc-btn" onClick={() => this.props.addSymbol('+')}>+</button>
+                <button className="btn calc-btn" onClick={() => this.props.equalSymbol()}>=</button>
             </article>
         );
     }
 }
 
+//export default connect(mapStateToProps)(CalcBtns);
 export default CalcBtns;

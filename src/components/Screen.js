@@ -9,11 +9,11 @@ class Screen extends Component {
     };
 
     render() {
-        const { num } = this.props;
-        console.log(num);
+        const { displayNum } = this.props;
+        console.log(displayNum);
         return(
             <article id="screen">
-                <h2 className="screenText">{num === '' ? '0' : num}</h2>
+                <h2 className="screenText">{displayNum}</h2>
             </article>
         );
     }
@@ -21,7 +21,7 @@ class Screen extends Component {
 
 const mapStateToProps = state => (
     {
-      num: state.calculate.startValue
+      displayNum: state.calculate.displayNum,
     }
   );  
 
