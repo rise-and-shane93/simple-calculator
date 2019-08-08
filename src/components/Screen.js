@@ -3,19 +3,17 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Screen extends Component {
+
     static propTypes = {
         num: propTypes.string.isRequired
     };
 
-    componentWillUpdate() {
-        console.log(this.props.num);
-    }
-
     render() {
         const { num } = this.props;
+        console.log(num);
         return(
             <article id="screen">
-                <h2 className="screenText">{num}</h2>
+                <h2 className="screenText">{num === '' ? '0' : num}</h2>
             </article>
         );
     }
@@ -23,7 +21,7 @@ class Screen extends Component {
 
 const mapStateToProps = state => (
     {
-      num: state.startValue
+      num: state.calculate.startValue
     }
   );  
 
