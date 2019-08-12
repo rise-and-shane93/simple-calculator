@@ -3,7 +3,8 @@ import { calcActions, calcBtns, numberBtns } from '../actionTypes/calcActionType
 const initialState = {
     result: '',
     currentItem: '',
-    displayNum: 0
+    displayNum: 0,
+    firstCalc: true
 };
 
 export default function addNum(state=initialState, action) {
@@ -12,22 +13,48 @@ export default function addNum(state=initialState, action) {
             return {
                 result: state.result,
                 currentItem: state.currentItem += action.num,
-                displayNum: state.currentItem
+                displayNum: state.currentItem,
+                firstCalc: state.firstCalc
             }
         }
         case calcBtns.ADD_BUTTON: {
-            return {
-                result: state.currentItem,
-                currentItem: '',
-                displayNum: state.result
+            if (state.firstCalc) {
+                if (typeof state.result === 'string') {
+                    return {
+                        result: state.currentItem,
+                        currentItem: '',
+                        displayNum: state.result,
+                        firstCalc: !state.firstCalc
+                    }        
+                } else {
+                    return {
+                        result: state.result,
+                        currentItem: '',
+                        displayNum: state.result,
+                        firstCalc: !state.firstCalc
+                    }    
+                }
+            } else {
+                let resNum = parseInt(state.result);
+                let currNum = parseInt(state.currentItem);
+                let sum = resNum + currNum;    
+                return {
+                    result: sum,
+                    currentItem: '',
+                    displayNum: sum,
+                    firstCalc: state.firstCalc
+                }    
             }
         }
         case calcBtns.EQUAL_BUTTON: {
             let resNum = parseInt(state.result);
             let currNum = parseInt(state.currentItem);
+            let sum = resNum + currNum;
             return {
-                result: resNum += currNum,
-                currentItem: state.currentItem
+                result: sum,
+                currentItem: state.currentItem,
+                displayNum: sum,
+                firstCalc: true
             }
         }
         default: 
