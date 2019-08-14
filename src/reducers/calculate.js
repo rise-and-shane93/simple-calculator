@@ -14,6 +14,9 @@ export default function addNum(state=initialState, action) {
     let sum;
     let result;
     let opSymbol;
+    let percentage;
+    let inverse;
+    let squareRoot;
     switch(action.type) {
         case numberBtns.NUMBER_BTN: {
             return {
@@ -41,13 +44,13 @@ export default function addNum(state=initialState, action) {
                         operatorSymbol: '+'
                     }
                 } else {
-                    if (state.operatorSymbol === '-') {
+                    if (state.operatorSymbol === '-' || state.operatorSymbol === '') {
                         sum = resNum - currNum;
-                    } else if (state.operatorSymbol === '+') {
+                    } else if (state.operatorSymbol === '+' || state.operatorSymbol === '') {
                         sum = resNum + currNum;
-                    } else if (state.operatorSymbol === 'x') {
+                    } else if (state.operatorSymbol === 'x' || state.operatorSymbol === '') {
                         sum = resNum * currNum;
-                    } else if (state.operatorSymbol === '/') {
+                    } else if (state.operatorSymbol === '/' || state.operatorSymbol === '') {
                         sum = resNum / currNum;
                     }
                     return {
@@ -75,7 +78,7 @@ export default function addNum(state=initialState, action) {
                         operatorSymbol: '-'
                     }    
                 } else {
-                    if (state.operatorSymbol === '+') {
+                    if (state.operatorSymbol === '+' || state.operatorSymbol === '') {
                         sum = resNum + currNum;
                     } else if (state.operatorSymbol === '-') {
                         sum = resNum - currNum;
@@ -160,35 +163,68 @@ export default function addNum(state=initialState, action) {
                 }
             } else if (action.symbol === '%') {
                 if (state.firstCalc) {
-                    sum = resNum / currNum; 
                     if (typeof state.result === 'string') {
-                        result = state.currentItem;
+                        percentage = currNum / 100;
                     } else {
-                        result = state.result;
+                        percentage = resNum / 100;
                     }
                     return {
-                        result: result,
+                        result: percentage,
                         currentItem: '',
-                        displayNum: state.result,
-                        firstCalc: !state.firstCalc,
-                        operatorSymbol: '%'
+                        displayNum: percentage,
+                        firstCalc: state.firstCalc,
+                        operatorSymbol: ''
                     }    
                 } else {
-                    if (state.operatorSymbol === '+') {
-                        sum = resNum + currNum;
-                    } else if (state.operatorSymbol === '-') {
-                        sum = resNum - currNum;
-                    } else if (state.operatorSymbol === 'x') {
-                        sum = resNum * currNum;
-                    } else if (state.operatorSymbol === '/') {
-                        sum = resNum / currNum;
+                    percentage = currNum / 100;
+                    return {
+                        ...state,
+                        currentItem: percentage, 
+                        displayNum: percentage,
+                    }
+                }
+            } else if (action.symbol === '1/x') {
+                if (state.firstCalc) {
+                    if (typeof state.result === 'string') {
+                        inverse = 1 / currNum;
+                    } else {
+                        inverse = 1 / resNum;
                     }
                     return {
-                        result: sum,
+                        result: inverse,
                         currentItem: '',
-                        displayNum: sum,
+                        displayNum: inverse,
                         firstCalc: state.firstCalc,
-                        operatorSymbol: '/'
+                        operatorSymbol: ''
+                    }    
+                } else {
+                    inverse = 1 / currNum;
+                    return {
+                        ...state,
+                        currentItem: inverse, 
+                        displayNum: inverse,
+                    }
+                }
+            } else if (action.symbol === '√') {
+                if (state.firstCalc) {
+                    if (typeof state.result === 'string') {
+                        squareRoot = Math.sqrt(currNum);
+                    } else {
+                        squareRoot = Math.sqrt(resNum);
+                    }
+                    return {
+                        result: squareRoot,
+                        currentItem: '',
+                        displayNum: squareRoot,
+                        firstCalc: state.firstCalc,
+                        operatorSymbol: ''
+                    }    
+                } else {
+                    squareRoot = Math.sqrt(currNum);
+                    return {
+                        ...state,
+                        currentItem: squareRoot, 
+                        displayNum: squareRoot,
                     }
                 }
             }
