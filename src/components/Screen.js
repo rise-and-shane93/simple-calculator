@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 class Screen extends Component {
 
-    static propTypes = {
-        num: propTypes.string.isRequired
-    };
+    // static propTypes = {
+    //     num: propTypes.string.isRequired
+    // };
 
     render() {
         const { displayNum } = this.props;

@@ -9,7 +9,7 @@ export const addNumber = num => {
 
 export const addSymbol = symbol => {
     return {
-        type: calcBtns.ADD_BUTTON,
+        type: calcBtns.OPERATOR_BUTTON,
         symbol
     }
 }

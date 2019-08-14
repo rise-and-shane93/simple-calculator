@@ -13,7 +13,7 @@ const Numbers = (props) => {
             <button className="btn number-btn" onClick={() => props.addNumber('2')}>2</button>
             <button className="btn number-btn" onClick={() => props.addNumber('3')}>3</button>
             <button className="btn number-btn" onClick={() => props.addNumber('0')}>0</button>
-            <button className="btn number-btn">.</button>
+            <button className="btn number-btn" onClick={() => props.addNumber('.')}>.</button>
             <button className="btn number-btn"><sup>+</sup>/<sub>-</sub></button>
         </article>
     );

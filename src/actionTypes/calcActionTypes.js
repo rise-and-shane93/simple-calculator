@@ -4,7 +4,7 @@ export const calcActions = {
 };
 
 export const calcBtns = {
-    ADD_BUTTON: 'ADD_BUTTON',
+    OPERATOR_BUTTON: 'OPERATOR_BUTTON',
     EQUAL_BUTTON: 'EQUAL_BUTTON'
 };
 
