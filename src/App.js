@@ -24,12 +24,17 @@ class App extends Component {
     const addNumber = bindActionCreators(ActionCreators.addNumber, dispatch);
     const addSymbol = bindActionCreators(ActionCreators.addSymbol, dispatch);
     const equalSymbol = bindActionCreators(ActionCreators.equalSymbol, dispatch);
+    const powerButton = bindActionCreators(ActionCreators.calculatorActions, dispatch);
+    const memoryButton = bindActionCreators(ActionCreators.memoryButton, dispatch);
 
     return (
       <section id="calculator">
         <Screen />
         <div className="calcInner">
-          <Memory />
+          <Memory 
+            powerButton={powerButton}
+            memoryButton={memoryButton}
+          />
           <div className="flex-container" style={{ display: 'flex' }}>
             <Numbers 
               addNumber={addNumber}

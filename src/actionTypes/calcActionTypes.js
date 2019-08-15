@@ -1,6 +1,5 @@
 export const calcActions = {
     POWER_BUTTON: 'POWER_BUTTON',
-    SHOW_NAME: 'SHOW_NAME'
 };
 
 export const calcBtns = {
@@ -11,3 +10,7 @@ export const calcBtns = {
 export const numberBtns = {
     NUMBER_BTN: 'NUMBER_BTN'
 };
+
+export const memoryBtns = {
+    MEMORY_BTN: 'MEMORY_BTN'
+}

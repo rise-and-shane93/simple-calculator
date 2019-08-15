@@ -1,4 +1,4 @@
-import { calcActions, calcBtns, numberBtns } from '../actionTypes/calcActionTypes';
+import { calcActions, calcBtns, numberBtns, memoryBtns } from '../actionTypes/calcActionTypes';
 
 export const addNumber = num => {
     return {
@@ -11,6 +11,19 @@ export const addSymbol = symbol => {
     return {
         type: calcBtns.OPERATOR_BUTTON,
         symbol
+    }
+}
+
+export const memoryButton = symbol => {
+    return {
+        type: memoryBtns.MEMORY_BTN,
+        symbol
+    }
+}
+
+export const calculatorActions = () => {
+    return {
+        type: calcActions.POWER_BUTTON,
     }
 }
 

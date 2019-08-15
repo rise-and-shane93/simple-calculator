@@ -1,11 +1,12 @@
-import { calcActions, calcBtns, numberBtns } from '../actionTypes/calcActionTypes';
+import { calcActions, calcBtns, numberBtns, memoryBtns } from '../actionTypes/calcActionTypes';
 
 const initialState = {
     result: '',
     currentItem: '',
     displayNum: 0,
     firstCalc: true,
-    operatorSymbol: ''
+    operatorSymbol: '',
+    memoryNum: []
 };
 
 export default function addNum(state=initialState, action) {
@@ -17,6 +18,9 @@ export default function addNum(state=initialState, action) {
     let percentage;
     let inverse;
     let squareRoot;
+    let memoryNumber;
+    let memoryArr = state.memoryNum;
+    let memorySum;
     switch(action.type) {
         case numberBtns.NUMBER_BTN: {
             return {
@@ -37,6 +41,7 @@ export default function addNum(state=initialState, action) {
                         result = state.result;
                     }
                     return {
+                        ...state,
                         result: result,
                         currentItem: '',
                         displayNum: state.result,
@@ -54,6 +59,7 @@ export default function addNum(state=initialState, action) {
                         sum = resNum / currNum;
                     }
                     return {
+                        ...state,
                         result: sum,
                         currentItem: '',
                         displayNum: sum,
@@ -71,6 +77,7 @@ export default function addNum(state=initialState, action) {
                         result = state.result;
                     }
                     return {
+                        ...state,
                         result: result,
                         currentItem: '',
                         displayNum: state.result,
@@ -88,6 +95,7 @@ export default function addNum(state=initialState, action) {
                         sum = resNum / currNum;
                     }
                     return {
+                        ...state,
                         result: sum,
                         currentItem: '',
                         displayNum: sum,
@@ -104,6 +112,7 @@ export default function addNum(state=initialState, action) {
                         result = state.result;
                     }
                     return {
+                        ...state,
                         result: result,
                         currentItem: '',
                         displayNum: state.result,
@@ -121,6 +130,7 @@ export default function addNum(state=initialState, action) {
                         sum = resNum / currNum;
                     }
                     return {
+                        ...state,
                         result: sum,
                         currentItem: '',
                         displayNum: sum,
@@ -137,6 +147,7 @@ export default function addNum(state=initialState, action) {
                         result = state.result;
                     }
                     return {
+                        ...state,
                         result: result,
                         currentItem: '',
                         displayNum: state.result,
@@ -154,6 +165,7 @@ export default function addNum(state=initialState, action) {
                         sum = resNum / currNum;
                     }
                     return {
+                        ...state,
                         result: sum,
                         currentItem: '',
                         displayNum: sum,
@@ -169,6 +181,7 @@ export default function addNum(state=initialState, action) {
                         percentage = resNum / 100;
                     }
                     return {
+                        ...state,
                         result: percentage,
                         currentItem: '',
                         displayNum: percentage,
@@ -191,6 +204,7 @@ export default function addNum(state=initialState, action) {
                         inverse = 1 / resNum;
                     }
                     return {
+                        ...state,
                         result: inverse,
                         currentItem: '',
                         displayNum: inverse,
@@ -213,6 +227,7 @@ export default function addNum(state=initialState, action) {
                         squareRoot = Math.sqrt(resNum);
                     }
                     return {
+                        ...state,
                         result: squareRoot,
                         currentItem: '',
                         displayNum: squareRoot,
@@ -244,11 +259,71 @@ export default function addNum(state=initialState, action) {
                 opSymbol = '/';
             }
             return {
+                ...state,
                 result: sum,
                 currentItem: state.currentItem,
                 displayNum: sum,
                 firstCalc: true,
                 operatorSymbol: opSymbol
+            }
+        }
+        case calcActions.POWER_BUTTON: {
+            return {
+                ...state,
+                result: '',
+                currentItem: '',
+                displayNum: 0,
+                firstCalc: true,
+                operatorSymbol: ''
+            }
+        }
+        case memoryBtns.MEMORY_BTN: {
+            if (action.symbol === 'M+') {
+                if (state.firstCalc) {
+                    if (typeof state.result === 'string') {
+                        memoryNumber = parseFloat(state.currentItem);
+                    } else {
+                        memoryNumber = parseFloat(state.result);
+                    }
+                } else {
+                    memoryNumber = parseFloat(state.result);
+                }
+                memoryArr.push(memoryNumber);
+                return {
+                    ...state,
+                    currentItem: '',
+                    memoryNum: memoryArr
+                }    
+            } else if (action.symbol === 'M-') {
+                if (state.firstCalc) {
+                    if (typeof state.result === 'string') {
+                        memoryNumber = parseFloat(state.currentItem) * -1;
+                    } else {
+                        memoryNumber = parseFloat(state.result) * -1;
+                    }
+                } else {
+                    memoryNumber = parseFloat(state.result) * -1;
+                }
+                memoryArr.push(memoryNumber);
+                return {
+                    ...state,
+                    currentItem: '',
+                    memoryNum: memoryArr
+                }    
+            } else if (action.symbol === 'MR') {
+                memorySum = memoryArr.reduce((acc,el) => {
+                    return acc += el;
+                }, 0);
+                return {
+                    ...state,
+                    displayNum: memorySum
+                }
+            } else if (action.symbol === 'MC') {
+                return {
+                    ...state,
+                    displayNum: 0,
+                    memoryNum: []
+                }
             }
         }
         default: 
